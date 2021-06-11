@@ -7,8 +7,6 @@ import {
 import HeaderItems from './HeaderItems'
 import Header from './components/Header'
 import Section from './components/Section'
-// import Footer from './components/Footer'
-// import ScreenSizeAlert from './components/ScreenSizeAlert'
 
 import DataLoader from './components/DataLoader'
 import charts from './charts'
@@ -21,12 +19,11 @@ import usePrevious from './hooks/usePrevious'
 import { serializeProject } from '@rawgraphs/rawgraphs-core'
 import useDataLoader from './hooks/useDataLoader'
 import isPlainObject from 'lodash/isPlainObject'
-// import CookieConsent from 'react-cookie-consent'
 
 // #TODO: i18n
 
 function App() {
-  let pageIndex = 0;
+  let pageIndex = 0
   const dataLoader = useDataLoader()
   const {
     userInput,
@@ -140,11 +137,7 @@ function App() {
       hydrateFromSavedProject(project)
       setCurrentChart(project.currentChart)
       setMapping(project.mapping)
-      // adding "annotations" for color scale:
-      // we annotate the incoming options values (complex ones such as color scales)
-      // to le the ui know they are coming from a loaded project
-      // so we don't have to re-evaluate defaults
-      // this is due to the current implementation of the color scale
+      
       const patchedOptions = { ...project.visualOptions }
       Object.keys(patchedOptions).forEach((k) => {
         if (isPlainObject(patchedOptions[k])) {
@@ -163,38 +156,28 @@ function App() {
     setVisualOptions(getDefaultOptionsValues(options))
   }, [])
 
-  const onPrev = useCallback(
-    () => {
-    pageIndex=pageIndex>0?(pageIndex-1):0;
-    console.log("prev",pageIndex);
-    return ("sec"+pageIndex);
-    },
-    []
-  )
+  const onPrev = useCallback(() => {
+    pageIndex = pageIndex > 0 ? pageIndex - 1 : 0
+    console.log('prev', pageIndex)
+    return 'sec' + pageIndex
+  }, [])
 
-  const onNext = useCallback(
-    () => {
-      console.log(App);
-    pageIndex++;
-    console.log("next",pageIndex);
-    return ("sec"+pageIndex);
-    },
-    []
-  )
-  
+  const onNext = useCallback(() => {
+    console.log(App)
+    pageIndex++
+    console.log('next', pageIndex)
+    return 'sec' + pageIndex
+  }, [])
+
   return (
     <div className="App">
       <Header menuItems={HeaderItems} />
-      {/* <div className="nav-button">
-          <a role="button" color="primary" href={onPrev}>Prev</a>
-          <a role="button"  color="primary" href={onNext} className="next-button">Next</a>
-      </div> */}
       <div className="app-sections">
         <Section title={`1. Load your data`} id="sec1" loading={loading}>
           <DataLoader {...dataLoader} hydrateFromProject={importProject} />
         </Section>
         {data && (
-          <Section title="2. Choose a chart" id="sec2" >
+          <Section title="2. Choose a chart" id="sec2">
             <ChartSelector
               availableCharts={charts}
               currentChart={currentChart}
@@ -227,39 +210,12 @@ function App() {
             />
           </Section>
         )}
-        {/* {data && currentChart && rawViz && (
+        {data && currentChart && rawViz && (
           <Section title="5. Export">
             <Exporter rawViz={rawViz} exportProject={exportProject} />
           </Section>
-        )} */}
-        {/* <Footer /> */}
-        {/* <CookieConsent
-          location="bottom"
-          buttonText="Got it!"
-          style={{ background: '#f5f5f5', color: '#646467' }}
-          buttonStyle={{
-            background: '#646467',
-            color: 'white',
-            fontSize: '13px',
-            borderRadius: '3px',
-            padding: '5px 20px',
-          }}
-          buttonClasses="btn btn-default btn-grey"
-          acceptOnScroll={true}
-        >
-          This website uses Google Analytics to anonymously collect browsing
-          data.{' '}
-          <a
-            href="https://rawgraphs.io/privacy/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-2 text-body border-bottom border-dark"
-          >
-            Learn More
-          </a>
-        </CookieConsent> */}
+        )}
       </div>
-      {/* <ScreenSizeAlert /> */}
     </div>
   )
 }

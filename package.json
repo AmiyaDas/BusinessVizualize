@@ -1,7 +1,7 @@
 {
-  "name": "rawgraphs-frontend",
-  "homepage": "https://app.rawgraphs.io",
-  "version": "2.0.0-beta.10",
+  "name": "Business-analytics",
+  "homepage": "https://businessanalytics-bits.web.app/",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@rawgraphs/rawgraphs-charts": "^1.0.0-beta.21",

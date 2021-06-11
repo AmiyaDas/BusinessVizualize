@@ -153,11 +153,6 @@ function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
     setDraggingId(null)
   }, [mapping])
 
-  // const commitLocalMapping = useCallback(() => {
-  //   console.log('COMMIT!', localMappding)
-  //   setMapping(localMappding)
-  //   setDraggingId(null)
-  // }, [localMappding, setMapping])
   const commitLocalMapping = () => {
     // setMapping()
     setMapping(lastMapping.current)
